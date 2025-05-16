@@ -1,0 +1,573 @@
+% !TeX root = ../main.tex
+
+\section{\LaTeX{} 编写指南}
+
+\begin{frame}[fragile]{Hello \LaTeX!}
+\begin{texcode}[basicstyle=\small\ttfamily, xleftmargin=1.2cm,
+    emph={[1]document}, emph={[2]article}]
+  % 用 pdfLaTeX、XeLaTeX 或 LuaLaTeX 编译
+  \documentclass{article}
+  \begin{document}
+  Hello \LaTeX!
+  \end{document}
+\end{texcode}
+\pause
+\begin{texcode}[basicstyle=\small\ttfamily, xleftmargin=1.2cm,
+    emph={[1]document}, emph={[2]ctexart}]
+  % 用 XeLaTeX 或 LuaLaTeX 编译
+  \documentclass{ctexart}
+  \begin{document}
+  你好，\LaTeX！
+  \end{document}
+  \end{texcode}
+\end{frame}
+
+\begin{frame}{编译文档}
+\begin{itemize}
+  \item 现代 \TeX{} 引擎均可直接生成 PDF \pause
+  \item 命令行
+    \begin{itemize}
+      \item |pdflatex|/|xelatex|/|lualatex| + |<文件名>[.tex]|
+      \item 多次编译：读取并排版中间文件 \pause
+      \item 推荐 \pkg{latexmk}：|latexmk [<选项>] [<文件名>]|
+    \end{itemize} \pause
+
+  \item 编辑器
+    \begin{itemize}
+      \item 按钮的背后仍然是命令
+      \item |PATH| 环境变量：确定可执行文件的位置
+      \item VS Code：配置\LaTeX{} Workshop插件的 |tools| \link{https://github.com/James-Yu/latex-workshop/wiki/Compile\#latex-tools} 和 |recipes| \link{https://github.com/James-Yu/latex-workshop/wiki/Compile\#latex-recipes} 设置
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{语法}
+\begin{itemize}
+  \item 注释以 |%| 开头，忽略本行其后所有内容
+  \item 命令以 |\| 开头的\emph{字母}，区分大小写
+    \begin{itemize}
+      \item |\foo{arg}|：必选参数放在 |{...}| 中
+      \item |\foo[bar]{arg}|：可选参数放在 |[...]|
+    \end{itemize}
+
+  \item 环境
+    \begin{texcode}[gobble=4, emph={[1]envname}]
+      \begin{envname}
+        ...
+      \end{envname}
+    \end{texcode}
+
+  \item 特殊符号需要转义：|\%|、|\$|、|\&|、|\textbackslash| 等
+  \item 连续多个空格 = 单个空格 = 单个换行符 \pause
+  \item \TeX{}/\LaTeX{} 的语法可以修改
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{文件结构}
+  \begin{texcode}[moretexcs={\graphicspath}]
+    \documentclass[a4paper]{ctexart}
+    % 文档类型，如 ctexart，[]内是选项，如 a4paper
+    % 这里开始是导言区
+    \usepackage{graphicx} % 引用宏包
+    \graphicspath{{figures/}} % 设置图片目录
+    % 导言区到此为止
+    \begin{document}
+    这里开始是正文
+    \end{document}
+  \end{texcode}
+\end{frame}
+
+
+\begin{frame}{\LaTeX{} 常用命令}
+  \begin{exampleblock}{简单命令}
+  \centering
+  \footnotesize
+  \begin{tabular}{cccc}
+    \cs{chapter} & \cs{section} & \cs{subsection} & \cs{paragraph} \\
+    章 & 节 & 小节 & 带题头段落 \\\hline
+    \cs{centering} & \cs{emph} & \cs{verb} & \cs{url} \\
+    居中对齐 & 强调 & 原样输出 & 超链接 \\\hline
+    \cs{footnote} & \cs{item} & \cs{caption} & \cs{includegraphics} \\
+    脚注 & 列表条目 & 标题 & 插入图片 \\\hline
+    \cs{label} & \cs{cite} & \cs{ref} & \cs{input},\cs{include}\\
+    标号 & 引用参考文献 & 引用图表公式等 & 插入子文件\\\hline
+    \end{tabular}
+  \end{exampleblock}
+  \begin{exampleblock}{环境}
+  \centering
+  \footnotesize
+  \begin{tabular}{ccc}
+    \env{table} & \env{figure} & \env{equation}\\
+    表格 & 图片 & 公式 \\\hline
+    \env{itemize} & \env{enumerate} & \env{description}\\
+    无编号列表 & 编号列表 & 描述 \\\hline
+  \end{tabular}
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]{文本标记}
+\begin{itemize}
+  \item 加粗：|{\bfseries ...}| 或 |\textbf{...}|
+  \item 倾斜：|{\itshape ...}| 或 |\textit{...}|
+  \item 字号：|\tiny|、|\small|、|\large|、|\Large| 等
+  \item 换行：|\\|
+  \item 缩进：|\indent|
+  \item 居中：|\centering| 或 |center| 环境
+\end{itemize}
+\end{frame}
+
+% \begin{frame}[fragile]{文本标记（二）}
+% \begin{itemize}
+%   \item 为什么要有不同的标记？\pause\mbox{}——表达不同的\alert{语义} \pause
+%   \item |\textbf| 这样的命令是否表达语义？ \pause
+%   \item 再提一遍基本原则：\alert{内容与格式分离} \pause
+%   \item 正确（或曰：合理）的做法
+
+%     \begin{itemize}
+%       \item 强调文字（意大利体）：|\emph{...}|
+%       \item 摘要（居中，小字号，带有标题）：|abstract| 环境
+%       \item 引用（左右边距较大）：|quote| 或 |quotation| 环境
+%       \item 自定义新的命令、环境
+%     \end{itemize}\pause
+%   \item 之前是否有在Word中新建样式呢？
+% \end{itemize}
+% \end{frame}
+
+
+\begin{frame}[fragile]{常用环境：列表与枚举}
+\begin{columns}
+\begin{column}{0.54\textwidth}
+  \begin{texcode}[gobble=4, emph={[1]enumerate,itemize}]
+    \begin{enumerate}
+      \item Frontend
+        \begin{itemize}
+          \item React
+          \item Vue.js
+          \item Svelte
+        \end{itemize}
+      \item Backend
+        \begin{description}
+          \item[PHP] Laravel
+          \item[JavaScript] Express
+          \item[Python] Django
+        \end{description}
+    \end{enumerate}
+  \end{texcode}
+\end{column}
+\pause
+\begin{column}{0.38\textwidth}
+  \begin{enumerate}
+    \item Frontend
+      \begin{itemize}
+        \item React
+        \item Vue.js
+        \item Svelte
+      \end{itemize}
+    \item Backend \par
+        \vspace{0.5ex}\small
+        \textbf{PHP}\enspace Laravel \\
+        \textbf{JavaScript}\enspace Express \\
+        \textbf{Python}\enspace Django
+  \end{enumerate}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{常用环境：图片}
+\begin{columns}
+\begin{column}{0.64\textwidth}
+  \begin{texcode}[gobble=4, moretexcs={\graphicspath,\includegraphics},
+      emph={[1]figure}, emph={[2]graphicx}]
+    % 不是 graphics
+    \usepackage{graphicx}
+    % 可以统一指定图片路径
+    \graphicspath{{./figures/}}
+
+    \begin{figure}
+      \centering
+      % 可指定宽度、高度等选项
+      % 图片后缀名可省略，但建议保留
+      \includegraphics[...]{hust-logo.pdf}
+      \caption{华科校徽}
+      \label{fig:hust-logo}
+    \end{figure}
+  \end{texcode}
+\end{column}
+\pause
+\begin{column}{0.28\textwidth}
+  \begin{figure}
+    \centering
+    \hustvi[width=\linewidth]{emblem}
+    \caption{华科校徽}
+    \label{fig:hust-logo_}
+  \end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{常用环境：表格}
+\begin{columns}
+\begin{column}{0.62\textwidth}
+  \begin{texcode}[gobble=4, moretexcs={\toprule,\midrule,\bottomrule},
+      emph={[1]table,tabular}, emph={[2]booktabs}]
+    \usepackage{booktabs} % 三线表
+    \begin{table}
+      \caption{中国人口调查}
+      \label{tab:china-population}
+      % 列格式：c 居中，l 左对齐，r 右对齐
+      \begin{tabular}{cc}
+        \toprule
+          年份 & 人口 \\
+        \midrule
+          1953 &  6.0 \\
+          ...
+          2020 & 14.1 \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+  \end{texcode}
+\end{column}
+\pause
+\begin{column}{0.3\textwidth}
+  \begin{table}
+    \caption{中国人口调查}
+    \label{tab:china-population_}
+    \footnotesize
+    \begin{tabular}{cc}
+      \toprule
+        年份 & 人口 \\
+      \midrule
+        1953 &  6.0 \\
+        1964 &  6.9 \\
+        1982 & 10.1 \\
+        1990 & 11.3 \\
+        2000 & 12.7 \\
+        2010 & 13.4 \\
+        2020 & 14.1 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{浮动体与交叉引用}
+\begin{itemize}
+  \item<+-> 浮动体机制
+    \begin{itemize}
+      \item |figure| 和 |table| 环境，标题使用 |\caption| 命令
+      \item 位置控制：|\begin{figure}[htb]|
+      \item 希望浮动体不要乱跑：``这是病，得治''
+            \link{https://liam.page/2017/03/11/floats-in-LaTeX-basic}
+      \item 文本为主，图、表为辅
+      \item 避免``见上图''、``见下表''
+      \item 建议写完全文之后统一调整
+    \end{itemize}
+
+  \item<+-> 以标签控制交叉引用
+    \begin{itemize}
+      \item 被引处：|\label|
+      \item 引用处：|\ref|、|\eqref|、|\autoref| 等（如图~\textcolor{hustblue}{\ref{fig:fudan-logo_}}、
+            表~\textcolor{hustblue}{\ref{tab:china-population_}}）
+      \item 用有意义的标签：|\label{eq:euler-lagrange-eq}|
+      \item \pkg{hyperref}：添加超链接、电子书签等
+      \item 需多次编译——推荐 \pkg{latexmk}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{如何插图？}
+\begin{itemize}
+  \item<+-> 外部插入
+    \begin{itemize}
+      \item Mathematica、MATLAB
+      \item PowerPoint、Visio、Adobe Illustrator、Inkscape、Figma 等
+      \item Julia \pkg{Makie.jl}, \pkg{Plots.jl}、R \pkg{ggplot2}、Python \pkg{Matplotlib}、Plotly 等
+      \item draw.io \link{https://www.draw.io}、
+            Mathcha \link{https://www.mathcha.io}、
+            ProcessOn \link{https://www.processon.com} 等网站
+    \end{itemize}
+
+  \item<+-> \TeX{} 内联
+    \begin{itemize}
+      \item \pkg{pgf}/\TikZ
+      \item \pkg{pgfplots}
+    \end{itemize}
+
+  \item<+-> 插图格式
+    \begin{itemize}
+      \item 矢量图：|.pdf|
+      \item 位图：|.jpg| 或 |.png|
+      \item \alert{不再推荐 \texttt{.eps}}
+      \item 不（完全）支持 |.svg|、|.bmp|
+    \end{itemize}
+
+  \item<+-> 参考：\link{https://www.zhihu.com/question/21664179}
+                  \link{https://tex.stackexchange.com/q/158668}
+                  \link{https://tex.stackexchange.com/q/72930}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{文献}
+\begin{itemize}
+  \item 建议自动生成\pause
+
+  \item |.bib| 数据库（条目会包含 key，用于引用）
+    \begin{itemize}
+      \item Google Scholar 复制，Zotero、Jabref 等生成
+      \item 注意特殊符号、公式等常常需要人工检查
+    \end{itemize} \pause
+
+  \item 传统方法：\BibTeX{} 后端
+    \begin{itemize}
+      \item 指定样式：|\bibliographystyle{<style>}|（导言区）
+      \item 标记引用：|\cite{<key>}|
+      \item 插入参考文献：|\bibliography{<bib 文件>}|
+      \item 更多文献、引用样式：\pkg{natbib} 宏包
+      \item 国家标准 GB/T 7714--2015
+            \link{https://www.gb688.cn/bzgk/gb/newGbInfo?hcno=7FA63E9BBA56E60471AEDAEBDE44B14C}
+            \link{https://github.com/Haixing-Hu/GBT7714-2005-BibTeX-Style/files/153951/GBT.7714-2015.pdf}：
+            \alert{\pkg{gbt7714} 宏包}
+    \end{itemize} \pause
+
+  \item 现代方法：\biber 后端 + \pkg{biblatex} 宏包
+    \begin{itemize}
+      \item 国家标准：\pkg{biblatex-gb7714-2015} 宏包
+    \end{itemize} \pause
+
+  \item 需多次编译——再次推荐 |latexmk|
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+  \LaTeX{} 重头戏: 数学输入
+\end{frame}
+
+\begin{frame}[fragile]{数学模式}
+\begin{itemize}
+  \item 一切数学公式都要在数学模式下输入
+    \begin{itemize}
+      \item 不受外界字体命令控制
+      \item 数学模式中空格不起作用，尽管用；但不能有空行
+      \item 建议始终调用 \pkg{amsmath} 宏包 \pause
+      \item \alert{不建议用 MathType 生成 \LaTeX{} 公式}
+      \item 但可以用 MathJax \link{https://www.mathjax.org} 或 Ka\TeX{} \link{https://katex.org} 练习
+    \end{itemize} \pause
+
+  \item 行内\zhparen{inline}公式
+    \begin{itemize}
+      \item 用一对美元符号：|$...$|
+      \item 示例：理想气体状态方程可以写为 $PV=nRT$, 其中 $P$、$V$ 和 $T$
+        分别是压强、体积和绝对温度
+    \end{itemize} \pause
+
+  \item 行间\zhparen{display}公式
+    \begin{itemize}
+      \item 无编号：|\[...\]| 或 |equation*| 环境
+      \item 编号：|equation| 环境
+      \item \alert{不要用 \texttt{\$\$...\$\$}} \link{https://tex.stackexchange.com/a/69854}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{数学表达式}
+\begin{itemize}
+  \item<+-> 上下标
+    \begin{itemize}
+      \item |^| 和 |_|：
+        \sout{\ttfamily\color{inline}f\^{}ab} vs |f^{ab}|，
+        \sout{\ttfamily\color{inline}e\^{}x\^{}2} vs |{e^x}^2| 或 |e^{x^2}|
+      \item 张量：|R^a{}_b{}^{cd}| 或使用 \pkg{tensor} 宏包
+      \item 配合积分、求和、极限使用：|\int|、|\sum|、|\lim|；
+        \lstinline[style=styleinline]|\(no)limits|
+    \end{itemize}
+
+  \item<+-> 分式
+    \begin{itemize}
+      \item |\frac{<分子>}{<分母>}|
+      \item 行内分式、小分式不好看：改用 |a/b|，或改用独显公式
+      \item \alert{不推荐 \texttt{\textbackslash dfrac}}
+    \end{itemize}
+
+  \item<+-> 根式
+    \begin{itemize}
+      \item |\sqrt[<次数>]{<内容>}|
+      \item 复杂情况建议改用分数指数：|{...}^{1/n}|
+    \end{itemize}
+
+  \item<+-> 矩阵与行列式
+    \begin{itemize}
+      \item |matrix|、|pmatrix|、|vmatrix| 等环境
+      \item 语法类似表格：|&| 分列，|\\| 换行
+      \item 复杂矩阵：\pkg{nicematrix} 宏包
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{数学括号与定界符}
+\begin{itemize}
+  \item<+-> 基本括号
+    \begin{itemize}
+      \item |(...)|、|[...]|、|\{...\}|、
+      \item 绝对值 $\vert\cdot\vert$、范数 $\Vert\cdot\Vert$：\lstinline[style=styleinline]+|...|+ 或 |\vert...\vert|、|\Vert...\Vert|
+      \item Dirac 符号 $\langle\cdot\rangle$：|\langle...\rangle|、\lstinline[style=styleinline]+|...\rangle+
+    \end{itemize}
+
+  \item<+-> 自动调节
+    \begin{itemize}
+      \item \lstinline[style=styleinline]+\left(...\mid|...\right)+ 等
+      \item 大型括号是拼出来的
+    \end{itemize}
+
+  \item<+-> 手动调节
+    \begin{itemize}
+      \item 只有 4 + 1 档：|\big|、|\Big|、|\bigg|、|\Bigg|
+      \item 声明左中右：|\bigl|、|\bigm|、|\bigr| 等
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{多行公式}
+\begin{itemize}
+  \item 以下均要求 \pkg{amsmath} 宏包
+  \item 独立数学环境
+    \begin{itemize}
+      \item 多行居中 |gather|、多行手动对齐 |align|、跨行 |multiline|
+      \item 手动对齐：关系符前加 |&|
+      \item 编号控制：|\tag{...}|、|\notag|
+    \end{itemize}
+
+  \item 内联数学环境
+    \begin{itemize}
+      \item 条件 |cases|、多行对齐 |split|、|...ed|
+    \end{itemize} \pause
+
+  \item 更复杂的情况
+    \begin{itemize}
+      \item \pkg{mathtools}、\pkg{empheq} 等
+      \item 自动换行：\pkg{breqn}
+      \item \alert{避免使用 \texttt{eqnarray} 环境} \link{https://tug.org/pracjourn/2012-1/madsen/madsen.pdf}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{精细调整}
+\begin{itemize}
+  \item 空格与间距
+    \begin{itemize}
+      \item |\quad|、|\qquad|、|\,|、|\!|
+      \item \pkg{physics} 宏包：|\qq{<text>}|、|\qcomma|、|\qif| 等
+    \end{itemize}
+
+  \item 行内公式断行
+    \begin{itemize}
+      \item 默认只允许在运算符之后断行
+      \item 不建议在行内插入过于复杂的公式
+    \end{itemize}
+
+  \item 多行公式
+    \begin{itemize}
+      \item 允许分页：|\allowdisplaybreaks|
+      \item 前后间距：|\abovedisplay(short)skip|、|\belowdisplay(short)skip|
+    \end{itemize} \pause
+
+  \item 经验之谈
+    \begin{itemize}
+      \item 避免过度封装：\lstinline[style=styleinline]|\newcommand{\be}{\begin{equation}}|
+      \item 不要浪费（现代）编辑器的高亮、提纲、预览、片段补充功能
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{宏包推荐}
+\scriptsize
+\setbeamertemplate{itemize/enumerate subbody begin}{\scriptsize}
+\setlength{\leftmarginii}{1em}
+\setlength{\columnsep}{2pt}
+\begin{multicols}{3}
+  \begin{itemize}
+    \item 必备
+      \begin{itemize}
+        \item \pkg{amsmath}
+        \item \pkg{graphicx}
+        \item \pkg{hyperref}
+      \end{itemize}
+
+    \item 样式
+      \begin{itemize}
+        \item \pkg{caption}
+        \item \pkg{enumitem}
+        \item \pkg{fancyhdr}
+        \item \pkg{footmisc}
+        \item \pkg{geometry}
+        \item \pkg{ntheorem}
+        \item \pkg{titlesec}
+      \end{itemize}
+
+    \item 数学
+      \begin{itemize}
+        \item \pkg{bm}
+        \item \pkg{mathtools}
+        \item \pkg{physics}/\pkg{physics2}
+        \item \pkg{unicode-math}
+      \end{itemize}
+
+    \item 表格
+      \begin{itemize}
+        \item \pkg{array}
+        \item \pkg{booktabs}
+        \item \pkg{longtable}
+        \item \pkg{tabularx}
+        \item \pkg{tabularray}
+      \end{itemize}
+
+    \item 插图、绘图
+      \begin{itemize}
+        \item \pkg{float}
+        \item \pkg{pdfpages}
+        \item \pkg{standalone}
+        \item \pkg{subfig}
+        \item \pkg{pgf}/\pkg{tikz}
+        \item \pkg{pgfplots}
+      \end{itemize}
+
+    \item 字体
+      \begin{itemize}
+        \item \pkg{newtx}/\pkg{newpx}
+        \item \pkg{pifont}
+        \item \pkg{fontspec}
+      \end{itemize}
+
+    \item 多语言
+      \begin{itemize}
+        \item \pkg{babel}
+        \item \pkg{polyglossia}
+        \item \pkg{ctex}
+        \item \pkg{xeCJK}
+        \item \pkg{luatexja}
+      \end{itemize}
+
+    \item 杂项功能
+      \begin{itemize}
+        \item \pkg{algorithm2e}
+        \item \pkg{beamer}
+        \item \pkg{biblatex}
+        \item \pkg{fancyhdr}
+        \item \pkg{listings}
+        \item \pkg{mhchem}
+        \item \pkg{microtype}
+        \item \pkg{minted}
+        \item \pkg{natbib}
+        \item \pkg{siunitx}
+        \item \pkg{xcolor}
+      \end{itemize}
+  \end{itemize}
+\end{multicols}
+\vspace*{-0.5cm}
+ACM出版系统允许使用的宏包 \link{https://authors.acm.org/proceedings/production-information/accepted-latex-packages}
+\end{frame}

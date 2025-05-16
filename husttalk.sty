@@ -1,0 +1,129 @@
+\ProvidesExplPackage{husttalk}
+  {[LATEST]}{[DEV]}
+  {Auxiliary package for HUST LaTeX Talk}
+
+
+\DeclareRobustCommand{\LaTeX}{%
+  L\kern-.3em%
+  \raisebox{.2em}{A}\kern-.14em%
+  \TeX}
+
+\RequirePackage{hustvisual}
+% \RequirePackage{animate} % for animated TikZ figures
+\RequirePackage{unicode-math}
+\RequirePackage{smartdiagram}
+\RequirePackage{multicol}
+\RequirePackage{qrcode}
+\RequirePackage{graphicx}
+\RequirePackage{siunitx}
+\RequirePackage{ulem}
+\RequirePackage{booktabs}
+\RequirePackage{tipa} % for IPA phonetic symbols
+\RequirePackage{fontawesome5} % for FontAwesome icons \faXXXX
+\RequirePackage{hologo} % for \hologo{XXX} command
+\RequirePackage{fancynum}
+\setfnumgsym{\,}
+\RequirePackage[lined,boxed,linesnumbered,ruled,vlined,algosection]{algorithm2e}
+
+\RequirePackage{array,tabu}
+\RequirePackage{multirow}
+
+\RequirePackage{graphicx,caption,subcaption}
+
+\RequirePackage{geometry}
+
+\hypersetup{
+  unicode,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=0,
+  breaklinks=true,
+  colorlinks=true,
+  allcolors=hustred,
+  linktoc=page,
+  plainpages=false,
+  pdfstartview={XYZ null null 1}
+}
+
+
+\RequirePackage{listings}
+\lstdefinelanguage{Julia}%
+  {morekeywords = {abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while},%
+   sensitive = true,%
+   alsoother = {$},%
+   morecomment = [l]\#,%
+   morecomment = [n]{\#=}{=\#},%
+   morestring = [s]{"}{"},%
+   morestring = [m]{'}{'},%
+}[keywords,comments,strings]%
+
+\lstset{
+  basicstyle = \tiny\ttfamily\linespread{0.5},
+  keywordstyle = \color{hustblue}\bfseries,
+  commentstyle = \color{hustyouthgreen}\itshape,
+  stringstyle = \color{hustred},
+  showspaces = false,
+  showstringspaces = false,
+  showtabs = false,
+  numbers = none,
+  numberstyle = \tiny\color{hustspacegray},
+  % frame = lines,
+  rulecolor = \color{black},
+  emphstyle = [1]\itshape\color{hustenergyred},
+  emphstyle = [2]\color{hustvitalityorange},
+  breaklines = true,
+  numbersep = 5pt,
+}
+% Code listings
+\lstdefinestyle{style@latex}{
+  language = [latex]TeX,
+  alsoletter = {*},
+  texcsstyle = *\color{hustoceanblue},
+}
+\lstnewenvironment{texcode}[1][]{\lstset{
+  style = style@latex,
+  basicstyle = \footnotesize\ttfamily,
+  gobble = 2,
+  morekeywords = {\documentclass,\usepackage,\begin,\end},#1}}{}
+\colorlet{inline}{hustspacegray}
+\lstdefinestyle{styleinline}{
+  basicstyle = \ttfamily\color{inline},
+  keepspaces = true
+}
+\ExplSyntaxOff
+\lstMakeShortInline[style=styleinline]|
+
+\DeclareDocumentCommand \cs { m }
+  { \texttt{\color{inline}\textbackslash #1} }
+\DeclareDocumentCommand \env { m }
+  { \texttt{\color{inline} #1} }
+
+\RequirePackage{etoolbox}
+\BeforeBeginEnvironment{algorithm}{\lstDeleteShortInline|}
+\AfterEndEnvironment{algorithm}{\lstMakeShortInline[style=styleinline]|}
+\ExplSyntaxOn
+
+\DeclareDocumentCommand\link{O{\faLink} m}{%
+  \href{#2}{\color{hustblue}#1}%
+}
+\newcommand{\jatext}[1]{{\addCJKfontfeatures{Language=Japanese}#1}}
+\newcommand{\pkg}[1]{\textsf{#1}}
+\newcommand{\cls}[1]{\textsf{#1}}
+\newcommand{\zhparen}[1]{（\raisebox{0.1ex}{#1}）}
+\newcommand{\nonumberfootnote}[2][]{%
+  \let\thefootnote\relax
+  \footnotetext#1{#2}
+}
+
+% snippet support
+
+\RequirePackage[siunitx]{circuitikz}
+\RequirePackage{musixtex}
+\RequirePackage{xpinyin}
+\ExplSyntaxOff
+\usetikzlibrary{arrows,intersections,positioning} % ExplPackage
+\usetikzlibrary{shapes.geometric, arrows.meta}
+\ExplSyntaxOn

@@ -1,0 +1,39 @@
+
+\XeTeXgenerateactualtext=1
+% \def\HANDOUT{0}
+\ifdefined\HANDOUT
+  \documentclass[handout]{ctexbeamer}
+\else
+  \documentclass[]{ctexbeamer}
+\fi
+
+\usepackage{husttalk}
+\usetheme{husttalk}
+\input{constants}
+
+\graphicspath{{figures/}}
+% \usetikzlibrary{external}
+% \tikzexternalize
+\title{\LaTeX{} 入门与论文排版}
+\author{黄宇希}
+\institute[HLUG]{华中科技大学Linux协会(HLUG)}
+\date{2025年5月17日}
+\titlegraphic{\indent\hustvi[width=0.2\linewidth]{emblem}}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}[plain]{目录}
+  \tableofcontents
+\end{frame}
+
+\include{content/01.introduction}
+\include{content/02.tutorial}
+\include{content/03.usage}
+\include{content/04.template}
+\include{content/05.advanced}
+
+\end{document}

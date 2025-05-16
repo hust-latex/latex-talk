@@ -1,0 +1,147 @@
+% !TeX root = ../main.tex
+
+\section{论文模板使用教程}
+
+\begin{frame}[fragile]{模板}
+\begin{itemize}
+  \item<+-> 是什么？
+    \begin{itemize}
+      \item 设计好的格式框架
+      \item 专注于内容：\alert{不必追求与期刊排版完全一致}
+      \item Word 中的样式：``学好 \LaTeX{} 可以更科学地使用 Word''
+    \end{itemize}
+
+  \item<+-> 有哪些？
+    \begin{itemize}
+      \item 期刊：\pkg{acmart}、\pkg{elsarticle}、\pkg{IEEEtran}……
+      \item 学位论文：\pkg{thuthesis}、\pkg{ustcthesis}、\pkg{SJTUThesis}……
+    \end{itemize}
+
+  \item<+-> 怎么用？
+    \begin{itemize}
+      \item |\documentclass[...]{...}|，配置参数，照常编写
+      \item 可能与 \LaTeX{} 通常用法不同：\alert{|texdoc| 看文档}
+    \end{itemize}
+
+  \item<+-> 去哪里找？
+    \begin{itemize}
+      \item CTAN \link{https://ctan.org} 或 GitHub \link[\faGithub]{https://github.com}
+      \item 期刊会议官网投稿指南
+      \item ``湿兄用 U 盘 or 微信传给你的模板几乎一定是过时的''
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{论文排版}
+  \begin{itemize}
+    \item 获取模板
+      \begin{itemize}
+        \item 随发行版自带、手动网络下载
+        \item 模板文档类 \texttt{.cls} 文件
+        \item 示例 \texttt{.tex} 文件
+      \end{itemize}
+    \item 编辑 \texttt{.tex} 文件：添加用户内容
+    \item 编译：生成 PDF 文档
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{论文排版举例}
+  \begin{exampleblock}{IEEE 期刊论文\zhparen{\pkg{IEEEtran} 宏包}}
+    \begin{itemize}
+      \item 获取模板
+        \begin{itemize}
+          \item 发行版自带：将 \TeXLive 安装目录的 |texmf-dist/doc/latex/IEEEtran/bare_jrnl.tex| 复制到某个文件夹并编辑
+          \item 手动下载：IEEE 官网 \link{https://www.ieee.org/conferences/publishing/templates.html}
+        \end{itemize}
+      \item 编译：\XeLaTeX{}、\pdfLaTeX{} 编译均可
+    \end{itemize}
+  \end{exampleblock}
+  \begin{exampleblock}{ACM 期刊 / 会议论文\zhparen{\pkg{acmart} 宏包}}
+    \begin{itemize}
+      \item 获取模板
+        \begin{itemize}
+          \item 发行版自带：按需选择 |texmf-dist/doc/latex/acmart/samples| 下的各个样例 |.tex| 文件
+          \item 手动网络下载：ACM 官网 \link{https://www.acm.org/publications/proceedings-template}
+        \end{itemize}
+      \item 编译：按样例文件要求选择程序\zhparen{通常 \pdfLaTeX{}}
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{hustthesis: 非官方华中科技大学学位论文 \LaTeX{} 模板}
+  \begin{itemize}
+  \item 最早\LaTeXe{}版由许铖于2013年6月发布
+  \item 2024年起由黄宇希以\LaTeX3重构并发布\pause
+
+  \item 安装
+    \begin{itemize}
+      \item CTAN 官方 \link{http://mirrors.ctan.org/macros/latex/contrib/hustthesis.zip}（发行版可使用自带更新机制）
+      \item GitHub \link[\faGithub\thesisgithubpath]{\thesisgithublink}
+    \end{itemize} \pause
+
+  \item 使用
+    \begin{itemize}
+      \item 下载解压使用 |hustthesis-user.zip| \link[\faGithub]{\thesisgithublink/releases/latest/download/hustthesis-user.zip}
+      \item 参考示例文件 |demo/main.tex| \link[\faGithub]{\thesisgithublink/blob/master/demo/main.tex}
+      \item 参考模板文档 |hustthesis.pdf| \link[\faGithub]{\thesisgithublink/releases/latest/download/hustthesis.pdf}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{学位论文模板选项}
+  \begin{description}
+  \item[degree] 指定学位类型（本科/硕士/博士）
+    \begin{texcode}
+  \documentclass[degree=bachelor]{hustthesis}
+    \end{texcode}
+  \item[anonymous] 是否开启匿名评审
+    \begin{texcode}
+  \documentclass[degree=master,anonymous=true]{hustthesis}
+    \end{texcode}
+  \item[fontset] 指定字体（推荐使用 |windows|，详见模板文档说明）
+    \begin{texcode}
+  \documentclass[degree=doctor,fontset=windows]{hustthesis}
+    \end{texcode}
+  \end{description}
+\end{frame}
+
+\begin{frame}[fragile]{学位论文封面选项}
+  使用 |\hustsetup{info=...}| 命令指定论文各类选项：
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      \begin{table}[h]
+      \centering
+      \tiny
+      \begin{tabular}{lcc}
+        \toprule
+        命令作用 & 中文对应选项 & 英文对应选项 \\
+        \midrule
+        论文标题 & |title| & |title*| \\
+        作者姓名 & |author| &|author*| \\
+        作者专业/类型 & |degree| &|degree*| \\
+        学科名称 & |major| & |major*| \\
+        导师 & |supervisor| & |supervisor*|\\
+        日期 & \multicolumn{2}{c}{|date|}\\
+        中图分类号 & |cls| & N/A \\
+        学号 & |student-id| & N/A \\
+        答辩委员会成员 & |committee| & N/A \\
+        \bottomrule
+      \end{tabular}
+      \end{table}
+    \end{column}
+    \begin{column}{.35\textwidth}
+      \begin{texcode}[gobble=8,keywords={hustsetup}]
+        \hustsetup{
+          info={
+            title={标题},
+            title*={Title},
+            author={姓名},
+            author*={Name},
+            ...
+          },
+        }
+      \end{texcode}
+    \end{column}
+  \end{columns}
+
+\end{frame}

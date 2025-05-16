@@ -1,0 +1,199 @@
+% !TeX root = ../main.tex
+
+\section{进阶使用}
+% \begin{frame}[fragile]{参考文献与扩展阅读}
+% \newcommand{\BOOK}[1]{\textbf{#1}}
+% \newcommand{\TAG}[1]{\textsc{[#1]}}
+% \newcommand{\URL}[1]{\scalebox{0.92}[1]{\url{#1}}}
+% \begin{multicols}{2}
+%   \begin{thebibliography}{99}
+%     \bibitem{}
+%       \textsc{Knuth D E}.
+%       \BOOK{The \TeX book: Computers \& Typesetting, volume C} \TAG{M}, 1984.
+%       \newblock Addison--Wesley Publishing Company, Boston
+%     \bibitem{}
+%       \textsc{Bringhurst R}.
+%       \BOOK{The Elements of Typographic Style, version 4.3} \TAG{M}, 2019.
+%       \newblock Hartley \& Marks Publishers, Vancouver
+%     \bibitem{}
+%       刘海洋．
+%       \BOOK{\LaTeX{} 入门} \TAG{M}, 2013.
+%       \newblock 北京：电子工业出版社
+%     \bibitem{}
+%       \jatext{高冈昌生}．
+%       刘庆~译，陈嵘~监修．
+%       \BOOK{西文排版：排版的基础和规范} \TAG{M}, 2016.
+%       \newblock 北京：中信出版集团
+%     \bibitem{}
+%       \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I} and \textsc{Schlegl E}.
+%       \CTeX{} 开发小组~译．
+%       \BOOK{一份（不太）简短的 \LaTeXe{} 介绍：或 111 分钟了解 \LaTeXe{}} \TAG{EB/OL}, 2023.
+%       \newblock \URL{https://ctan.org/pkg/lshort-zh-cn}
+%     \bibitem{}
+%       黄新刚（包太雷）．
+%       \BOOK{\LaTeX{} Notes: 雷太赫排版系统简介（第二版）} \TAG{EB/OL}, 2021.
+%       \newblock \URL{https://github.com/huangxg/lnotes}
+%     \bibitem{}
+%       汪彧之，陈晟祺．
+%       \BOOK{清华大学图书馆：如何使用 \LaTeX{} 排版论文} \TAG{EB/OL}, 2023.
+%       \newblock \URL{https://github.com/tuna/thulib-latex-talk}
+%     \bibitem{}
+%       吴伟健，李子龙，钱宇超．
+%       \BOOK{上海交通大学图书馆：如何使用 \LaTeX{} 排版论文\,/\,幻灯片} \TAG{EB/OL}, 2023.
+%       \newblock \URL{https://github.com/sjtug/sjtulib-latex-talk}
+%     \bibitem{}
+%       刘海洋．
+%       \BOOK{\LaTeX{} 快速入门} \TAG{EB/OL}, 2020.
+%       \newblock Video: \href{https://www.bilibili.com/video/BV1s7411U7Pr}{\faVideo}
+%       % Old version: https://bbs.pku.edu.cn/attach/e7/f2/e7f2bb698b9c3672/tex_intro_talk.pdf
+%     \bibitem{}
+%       林莲枝．
+%       \BOOK{漫谈 \LaTeX{} 排版常见概念误区：别把 \LaTeX{} 当 Word 用！}\TAG{EB/OL}, 2018.
+%       \newblock Video: \href{https://www.bilibili.com/video/BV1r4411o7KJ}{\faVideo}\quad
+%         PDF: \href{http://static.latexstudio.net/wp-content/uploads/2018/03/LianTze-presentation-0320-forReading.pdf}{\faDownload}
+%     \bibitem{}
+%       Wikibooks.
+%       \BOOK{\LaTeX{}---Wikibooks, The Free Textbook Project} \TAG{EB/OL}.
+%       \newblock \URL{https://en.wikibooks.org/wiki/LaTeX}
+%     \bibitem{}
+%       Overleaf.
+%       \BOOK{Overleaf Documentation} \TAG{EB/OL}.
+%       \newblock \URL{https://www.overleaf.com/learn}
+%     \bibitem{}
+%       \LaTeX{} project.
+%       \BOOK{Learn\LaTeX.org} \TAG{EB/OL}.
+%       \newblock \URL{https://www.learnlatex.org}
+%   \end{thebibliography}
+% \end{multicols}
+% \end{frame}
+
+\begin{frame}{Git}
+\begin{itemize}
+  \item<+-> 版本管理的必要性
+    \begin{itemize}
+      \item 远离``初稿、第二稿、第三稿……终稿、终稿（打死也不改了）''
+      \item 有底气做大范围修改、重构
+      \item 方便与他人协同合作
+    \end{itemize}
+
+  \item<+-> 基本用法
+    \begin{itemize}
+      \item 把大象放进冰箱：|git init|、|git add|、|git commit|
+      \item 时空穿梭：|git reset|、|git restore|、|git revert|
+      \item 平行宇宙：|git branch|、|git switch|、|git rebase|
+      \item 推荐用 VS Code 等进行可视化操作
+      \item 参考链接：\link{https://git-scm.com/book}
+        \link{https://ndpsoftware.com/git-cheatsheet.html}
+        \link{https://nvie.com/posts/a-successful-git-branching-model/}
+    \end{itemize}
+
+  \item<+-> GitHub \link[\faGithub]{https://github.com}
+    \begin{itemize}
+      \item 远程 Git 仓库
+      \item Clone \& fork
+      \item Issues \& pull requests
+      \item<+-> \alert{提醒：教育验证后可以有更多优惠}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+  FAQ
+\end{frame}
+
+\begin{frame}[fragile]{FAQ}
+  \begin{itemize}
+    \item \textbf{ \sout{网上抄的}神奇命令} |\abc| \textbf{怎么用不了？}\pause
+
+    \item[] \begin{itemize}
+      \item 在\TeX{}Studio 的 |cwl| 库搜索依赖宏包 \link[\faGithub]{https://github.com/texstudio-org/texstudio/tree/master/completion}
+    \end{itemize}\pause
+
+    \item \textbf{ 我不知道宏包 \pkg{xxx} 的用法？}\pause
+
+    \item[] \begin{itemize}
+      \item |texdoc -l xxx| 查看宏包文档
+    \end{itemize}\pause
+
+    \item \textbf{ 我想了解宏包 \pkg{xxx} 中命令} |\abc| \textbf{的实现？}\pause
+
+    \item[] \begin{itemize}
+      \item |latexdef -p xxx abc| 查看命令定义
+    \end{itemize}\pause
+
+    \item \textbf{ 我想知道宏包 \pkg{xxx} 的实现？}\pause
+
+    \item[] \begin{itemize}
+      \item |kpsewhich -all xxx.sty| 查看宏包路径以及优先级
+    \end{itemize}\pause
+
+    \item \textbf{ 我还想知道…… }\pause
+
+    \item[] \begin{itemize}
+      \item Google (in English) \link[\faGoogle]{https://www.google.com}
+      \item \TeX{}--\LaTeX{} Stack Exchange \link{https://tex.stackexchange.com}
+      \item C\TeX{} 临时论坛 \link[\faGithub]{https://github.com/CTeX-org/forum}
+      \item 大语言模型 LLMs: ChatGPT, DeepSeek, Claude, Gemini,...
+      \item 协会 QQ 群
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{学有余力？}
+\begin{itemize}
+  \item 文档翻译
+    \begin{itemize}
+      \item \pkg{lshort-zh-cn} \link{https://github.com/CTeX-org/lshort-zh-cn}
+      \item \pkg{learnlatex.org/zh} \link{https://github.com/CTeX-org/learnlatex.github.io}
+      \item \pkg{Wikibooks} \link{https://zh.wikibooks.org/wiki/LaTeX}
+    \end{itemize}
+
+  \item 宏包开发与维护
+    \begin{itemize}
+      \item 不妨先从修 typo 开始
+      \item 参与讨论，你的经验也可以解他人之忧
+        \link{\thesisgithublink/discussions}
+        \link{https://github.com/stone-zeng/fduthesis/discussions}
+        \link{https://github.com/tuna/thuthesis/discussions}
+        \link{https://github.com/sjtug/SJTUThesis/discussions}
+      \item 欢迎参与维护 \pkg{hustthesis}, \pkg{hustvisual}
+    \end{itemize}
+
+  \item \sout{来当主讲人}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{关于}
+  \begin{columns}[c]
+    \begin{column}{.7\textwidth}
+      \begin{itemize}
+        \item 本幻灯片源码：
+          \begin{itemize}
+            \item \href{\githublink}{\faGithub\githublinkpath}
+          \end{itemize}
+        \item 本幻灯片参考\zhparen{了许多}：
+          \begin{itemize}
+            \item \href{https://github.com/stone-zeng/latex-talk}{\faGithub/stone-zeng/latex-talk}
+            \item \href{https://github.com/tuna/thulib-latex-talk}{\faGithub/tuna/thulib-latex-talk}
+          \end{itemize}
+        \item 本幻灯片下载：
+          \begin{itemize}
+            \item GitHub Releases \link{\githublink/releases}
+          \end{itemize}
+        \item 许可证：CC BY-SA 4.0 \faCreativeCommons\,\faCreativeCommonsBy\,\faCreativeCommonsSa
+      \end{itemize}
+    \end{column}
+    \begin{column}{.3\textwidth}
+      \qrcode[hyperlink, height=\linewidth]{\githublink/releases}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[standout]
+  \begin{center}
+    \Huge
+    感谢
+  \end{center}
+\end{frame}

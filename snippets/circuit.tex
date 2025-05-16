@@ -1,0 +1,20 @@
+% !TeX encoding = UTF-8
+% !TeX program = latexmk
+% !TeX root = ../main.tex
+
+% adapted from https://github.com/tuna/thulib-latex-talk/blob/master/content/01.introduction.tex
+
+\resizebox{\linewidth}{!}{
+\begin{circuitikz}[scale=0.8,every node/.style={scale=0.6},font=\rmfamily]\draw
+  (0,0) node[ground] {}
+      to[V=$e(t)$, *-*] (0,2) to[C=4<\nano\farad>] (2,2)
+      to[R, l_=.25<\kilo\ohm>, *-*] (2,0)
+  (2,2) to[R=1<\kilo\ohm>] (4,2)
+      to[C, l_=2<\nano\farad>, *-*] (4,0)
+  (5,0) to[I, i_=$a(t)$, -*] (5,2) -- (4,2)
+  (0,0) -- (5,0)
+  (0,2) -- (0,3) to[L, l=2<\milli\henry>] (5,3) -- (5,2)
+  {[anchor=south east] (0,2) node {1} (2,2) node {2} (4,2) node {3}}
+  ;
+\end{circuitikz}
+}

@@ -1,0 +1,20 @@
+
+\tiny\begin{algorithm}[H]
+\DontPrintSemicolon
+\KwIn{Function $f(x)$, its derivative $f'(x)$, initial guess $x_0$, tolerance $\varepsilon$, max iterations $N$}
+\KwOut{Approximate root $x$ or failure notice}
+$x \gets x_0$ \;
+\For{$i \gets 1$ \KwTo $N$}{
+    $f_x \gets f(x)$ \;
+    $f'_x \gets f'(x)$ \;
+    \If{$|f_x| < \varepsilon$}{
+        \Return{$x$ (converged)} \;
+    }
+    \If{$f'_x = 0$}{
+        \Return{Failure: derivative is zero} \;
+    }
+    $x \gets x - \dfrac{f_x}{f'_x}$ \;
+}
+\Return{Failure: did not converge in $N$ iterations} \;
+% \caption{Newton-Raphson Root Finding}
+\end{algorithm}

@@ -1,0 +1,117 @@
+\ProvidesExplPackage{beamerthemehusttalk}%[Beamer theme for HUST LaTeX Talk]
+  {[LATEST]}{[DEV]}
+  {Beamer theme for HUST LaTeX Talk}
+
+\RequirePackage{hustvisual}
+
+\RequirePackage{indentfirst}
+\setlength{\parindent}{2em}
+
+\RequirePackage[table]{xcolor}
+
+\usetheme[progressbar=none]{metropolis}
+\setlength{\metropolis@titleseparator@linewidth}{2pt}
+\setlength{\metropolis@progressonsectionpage@linewidth}{2pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{2pt}
+\usefonttheme{serif,professionalfonts}
+% \useinnertheme[shadow]{rounded}
+% \useoutertheme{infolines}
+% \useoutertheme[footline=institutetitle,subsection=false]{miniframes}
+% \usecolortheme[named=hustblue]{structure}
+
+% \setbeamertemplate{itemize items}[circle]
+% \setbeamertemplate{enumerate items}[default]
+\setbeamerfont{section~ in~ toc}{size=\large, series=\bfseries, family=\rmfamily}
+\setbeamerfont{subsection~ in~ toc}{size=\normalsize, series=\mdseries, family=\rmfamily}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor*{Title~ bar}{fg=husttechgray} % `~' for ExplPackage
+\setbeamerfont{bibliography~ item}{size=\footnotesize} % `~' for ExplPackage
+\setbeamertemplate{bibliography~ item}[text]
+\providecommand*{\bibfont}{\scriptsize}
+
+\setbeamertemplate{itemize~ items}{\Large $\bullet$}
+\mode<presentation>
+{
+  \setbeamercolor*{item}{fg=hustblue}
+  \setbeamertemplate{itemize~ item}{\raise1.25pt\hbox{\tikz\draw[fill=fg] (0,0) circle (.3ex);}}
+  \setbeamertemplate{itemize~ subitem}{\color{fg}\tiny\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
+  \setbeamertemplate{itemize~ subsubitem}{\raise2.5pt\hbox{\tikz\draw[fill=fg] (0,0) rectangle (.7ex, .2ex);}}
+}
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{
+    \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}
+      \usebeamerfont{author in head/foot}\insertshortinstitute
+    \end{beamercolorbox}
+
+    \begin{beamercolorbox}[wd=.7\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+      \usebeamerfont{author in head/foot}\insertshorttitle
+    \end{beamercolorbox}
+
+    \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}
+      \insertframenumber{}% / \inserttotalframenumber
+    \end{beamercolorbox}
+  }
+  \vskip0.2ex
+}
+\setbeamercolor{palette~ primary}{ % frametitle, standout, etc.
+  fg=white,
+  bg=hustblue,
+}
+\setbeamercolor{alerted~ text}{ % `~' for ExplPackage
+  fg=hustred,
+  bg=white,
+}
+\setbeamercolor{example~ text}{ % `~' for ExplPackage
+  fg=hustblue,
+  bg=white,
+}
+% \setbeamercolor*{Location bar}{fg=hustvitalityorange,bg=hustspacegray}
+% \setbeamercolor*{frametitle}{parent=Title bar}
+% \setbeamercolor*{block title}{bg=hustblue,fg=white}
+% \setbeamercolor*{block body}{bg=husttechgray,fg=hustspacegray}
+% \setbeamercolor*{normal text}{bg=white,fg=hustspacegray}
+% \setbeamercolor*{section in head/foot}{bg=hustblue,fg=white}
+% \usecolortheme[named=hustvitalityorange]{structure}
+% \setbeamerfont{date}{size=\scriptsize,parent=structure}
+% \setbeamerfont{section in head/foot}{size=\tiny,series=\normalfont}
+% \setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+% \setbeamertemplate{section in toc}[sections numbered]
+% \setbeamertemplate{subsection in toc}[subsections numbered]
+% \setbeamertemplate{navigation symbols}{}
+% \setbeamertemplate{frametitle}
+% {
+%   \vskip-0.25\beamerheadheight
+%   \vskip-\baselineskip
+%   \vskip-0.2cm
+%   \hskip0.7cm\usebeamerfont*{frametitle}\insertframetitle
+%   \vskip-0.10em
+%   \hskip0.7cm\usebeamerfont*{framesubtitle}\insertframesubtitle
+% }
+% \setbeamertemplate{headline}
+% {
+%   % \hustvi[width=0.1\paperwidth]{emblem}
+%   \vskip -0.4\beamerheadheight
+%   \linethickness{0pt}
+
+%   \framelatex{
+%   \begin{beamercolorbox}[wd=\paperwidth,ht=0.3\beamerheadheight]{Title bar}
+%     \usebeamerfont{section in head/foot}%
+%     \hskip 1.2cm\insertsectionnavigationhorizontal{0pt}{\hskip0.22cm}{}%
+%   \end{beamercolorbox}}
+
+%   \framelatex{
+%   \begin{beamercolorbox}[wd=\paperwidth,ht=0.7\beamerheadheight]{Title bar}
+%   \end{beamercolorbox}}
+% }
+% \setbeamertemplate{footline}
+% {
+%   \linethickness{0pt}
+%   \framelatex{
+%   \begin{beamercolorbox}[leftskip=.3cm,wd=\paperwidth,ht=0.3\beamerheadheight,sep=0.1cm]{Location bar}
+%     \usebeamerfont{section in head/foot}%
+%     \insertshortauthor~|~\insertshorttitle
+%     \hfill
+%     \insertframenumber/\inserttotalframenumber
+%   \end{beamercolorbox}}
+% }

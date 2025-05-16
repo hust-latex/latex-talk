@@ -1,0 +1,56 @@
+\resizebox{\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.3cm and 2.8cm]
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=4.2cm, minimum height=1.1cm,align=center, draw=black, fill=blue!10]
+\tikzstyle{files} = [rectangle, minimum width=4.2cm, minimum height=1cm,align=center, draw=black, fill=gray!20]
+\tikzstyle{support} = [rectangle, rounded corners, minimum width=3.2cm, minimum height=1cm,align=center, draw=black, fill=green!20, dashed]
+\tikzstyle{startstop} = [ellipse, minimum width=4cm, minimum height=1cm,align=center, draw=black, fill=red!20]
+\tikzstyle{automation} = [diamond, aspect=2, minimum width=4cm, align=center, draw=black, fill=yellow!30]
+\tikzstyle{arrow} = [thick, ->, >=Stealth]
+\tikzstyle{optionalarrow} = [thick, ->, >=Stealth, dashed]
+\tikzstyle{optionalprocess} = [process, dashed]
+
+% Main flow
+\node (source) [startstop] {.tex, .bib等源文件};
+
+\node (engine) [process, below=of source] {\TeX/\LaTeX 引擎\\(\pdfTeX / \XeLaTeX / ...)};
+
+\node (aux) [files, below=of engine] {中间文本文件\\
+\scriptsize
+\begin{tabular}{l}
+.aux: 引用、标签 \\
+.toc: 目录页码 \\
+.bbl: 文献列表 \\
+...
+\end{tabular}
+};
+
+\node (rerun) [optionalprocess, below=of aux] {再次运行引擎\\
+\scriptsize
+以处理交叉引用、目录、索引};
+
+\node (output) [startstop, below=of rerun] {最终输出\\PDF / DVI};
+
+% Support tools
+\node (index) [support, right=4cm of engine] {外部支持工具\\MakeIndex / xindy / ...};
+\node (bib) [support, left=4cm of engine] {文献处理\\\BibTeX / \biber};
+
+% Automation tools
+\node (latexmk) [automation, left=4cm of source] {latexmk};
+\node (arara) [automation, right=4cm of source] {arara};
+
+\draw [arrow] (source) -- node[right] {手动运行} (engine);
+\draw [arrow] (engine) -- node[right] {初次编译，生成中间文件} (aux);
+\draw [optionalarrow] (aux) -- node[right] {处理引用/索引后再编译} (rerun);
+\draw [arrow] (rerun) -- node[right] {生成输出文件} (output);
+
+\draw [optionalarrow] (engine) -- node[above] {生成 .aux/.bib 数据} (bib);
+\draw [optionalarrow] (engine) -- node[above] {.idx/.glo 等中间文件} (index);
+\draw [optionalarrow] (bib) |- node[right, yshift=2ex] {.bbl 文献列表输出} (aux);
+\draw [optionalarrow] (index) |- node[left, yshift=2ex] {.ind/.gls 等中间文件输出} (aux);
+
+% Automation tools
+\draw [arrow] (latexmk) -- node[above left, yshift=-3ex] {自动增量检测并多次调用引擎} (engine);
+\draw [arrow] (arara) -- node[above right, yshift=-3ex] {基于注释规则控制编译流程} (engine);
+
+\end{tikzpicture}
+}
