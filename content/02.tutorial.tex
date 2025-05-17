@@ -5,13 +5,14 @@
 \begin{frame}{\secname}
   \centering
   \smartdiagram[descriptive diagram]{
-    {\textbf{发行版}, {工具链 + 宏包 + 字体 + 文档\\如\TeX{} Live， \MiKTeX{}}},
-    {\textbf{编辑器}, {代码编写界面\\高亮 + 补全 + 片段 + $\cdots$\\如VSCode，\TeX{}Studio，Vim}},
     {\textbf{工具链}, {源码解析+文档生成（如PDF）\\如\XeLaTeX，\BibTeX}},
+    {\textbf{编辑器}, {代码编写界面\\高亮 + 补全 + 片段 + $\cdots$\\如VSCode，\TeX{}Studio，Vim}},
+    {\textbf{发行版}, {工具链 + 宏包 + 字体 + 手册\\如\TeX{} Live， \MiKTeX{}}},
   }
 \end{frame}
 
 \begin{frame}{什么是工具链？}
+  包含\TeX{}引擎(程序)和支持工具(程序)，\\
   以文本文件为介质的程序间协同排版处理流水线
   \pause
   \centering
@@ -23,6 +24,7 @@
   \TeX{}引擎是将\TeX{}源文件（文本+宏）编译成目标文件（如PDF）的程序。
   \pause{}例如：
   \begin{itemize}
+    \item \TeX{}：最初的引擎，生成 |.dvi| 文件，需要外部程序 |dvipdf| 转换为 PDF
     \item \pdfTeX{}：直接生成 PDF，支持 micro-typography
     \item \XeTeX{}：支持 Unicode、OpenType 与复杂文字编排（CTL）
     \item \LuaTeX{}：支持 Unicode、OpenType，内联 Lua
@@ -56,31 +58,9 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{\TeX{} 在线服务：不想安装\TeX{} 发行版？}
-  \begin{itemize}
-    \item 无需安装，直接在浏览器中使用
-    \item<+-> 方便多人协作预览、编写、批注
-    \item<+-> 国际版\textbf{Overleaf} \link{https://www.overleaf.com}
-      \begin{itemize}
-        \item 预设模板丰富
-        \item 免费版编译时长限制
-      \end{itemize}
-    \item<+-> 国内版\textbf{\TeX{} Page} \link{https://www.texpage.com}
-      \begin{itemize}
-        \item 预设众多中文字体
-        \item 特色功能（暗黑模式等）
-        \item 免费版编译时长限制
-      \end{itemize}
-    \item<+-> \textbf{协会自建Overleaf平台}(\url{latex.hlug.cn})
-      \begin{itemize}
-        \item 无编译时长限制
-        \item 校内用户福利
-      \end{itemize}
-  \end{itemize}
-\end{frame}
-
 \begin{frame}{\TeX{} 发行版}
   \begin{itemize}
+    \item 发行版是\TeX{}工具链、宏包、字体、手册的集合 \pause
     \item 编译更快 \sout{（你得有更快的设备）}
     \item 自由的版本控制
     \item<+-> 自定义编译流程
@@ -122,5 +102,29 @@
         \item 也可以使用 MacPorts
       \end{itemize}
     \item 手把手的教程：\link{https://www.ctan.org/pkg/install-latex-guide-zh-cn}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{\TeX{} 在线服务：不想安装\TeX{} 发行版？}
+  \begin{itemize}
+    \item 无需安装，直接在浏览器中使用
+    \item<+-> 方便多人协作预览、编写、批注
+    \item<+-> 国际版\textbf{Overleaf} \link{https://www.overleaf.com}
+      \begin{itemize}
+        \item 预设模板丰富
+        \item 免费版编译时长限制
+      \end{itemize}
+    \item<+-> 国内版\textbf{\TeX{} Page} \link{https://www.texpage.com}
+      \begin{itemize}
+        \item 预设众多中文字体
+        \item 特色功能（暗黑模式等）
+        \item 免费版编译时长限制
+      \end{itemize}
+    \item<+-> \textbf{协会自建Overleaf平台}(\url{latex.hlug.cn})
+      \begin{itemize}
+        \item 无编译时长限制
+        \item 校内用户福利
+      \end{itemize}
   \end{itemize}
 \end{frame}

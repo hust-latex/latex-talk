@@ -1,18 +1,24 @@
+% !TeX root = ../main.tex
+
+% Copyright (c) 2025, HUANG Yuxi
+% Released under the CC BY-SA 4.0 license.
+
 \resizebox{\linewidth}{!}{
 \begin{tikzpicture}[node distance=1.3cm and 2.8cm]
-\tikzstyle{process} = [rectangle, rounded corners, minimum width=4.2cm, minimum height=1.1cm,align=center, draw=black, fill=blue!10]
-\tikzstyle{files} = [rectangle, minimum width=4.2cm, minimum height=1cm,align=center, draw=black, fill=gray!20]
-\tikzstyle{support} = [rectangle, rounded corners, minimum width=3.2cm, minimum height=1cm,align=center, draw=black, fill=green!20, dashed]
-\tikzstyle{startstop} = [ellipse, minimum width=4cm, minimum height=1cm,align=center, draw=black, fill=red!20]
-\tikzstyle{automation} = [diamond, aspect=2, minimum width=4cm, align=center, draw=black, fill=yellow!30]
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=4.2cm, minimum height=1.1cm, align=center, draw=black, fill=blue!10]
+\tikzstyle{files} = [chamfered rectangle, minimum width=4.2cm, minimum height=1cm,align=center, draw=black, fill=gray!20]
+\tikzstyle{support} = [rectangle, rounded corners, minimum width=3.2cm, minimum height=1cm, align=center, draw=black, fill=green!20, dashed]
+\tikzstyle{startstop} = [ellipse, minimum width=4cm, minimum height=1cm, align=center, draw=black, fill=red!20]
+\tikzstyle{automation} = [diamond, aspect=2, minimum width=4cm, align=center, draw=black, fill=yellow!30, dashed]
 \tikzstyle{arrow} = [thick, ->, >=Stealth]
 \tikzstyle{optionalarrow} = [thick, ->, >=Stealth, dashed]
+\tikzstyle{controlarrow} = [thick, ->, >=Stealth, dotted, double, double distance=3pt]
 \tikzstyle{optionalprocess} = [process, dashed]
 
 % Main flow
 \node (source) [startstop] {.tex, .bib等源文件};
 
-\node (engine) [process, below=of source] {\TeX/\LaTeX 引擎\\(\pdfTeX / \XeLaTeX / ...)};
+\node (engine) [process, below=of source] {\TeX/\LaTeX 引擎\\\pdfTeX / \XeLaTeX / ...};
 
 \node (aux) [files, below=of engine] {中间文本文件\\
 \scriptsize
@@ -31,7 +37,7 @@
 \node (output) [startstop, below=of rerun] {最终输出\\PDF / DVI};
 
 % Support tools
-\node (index) [support, right=4cm of engine] {外部支持工具\\MakeIndex / xindy / ...};
+\node (index) [support, right=4cm of engine] {其他外部支持工具\\MakeIndex / xindy / ...};
 \node (bib) [support, left=4cm of engine] {文献处理\\\BibTeX / \biber};
 
 % Automation tools
@@ -41,7 +47,9 @@
 \draw [arrow] (source) -- node[right] {手动运行} (engine);
 \draw [arrow] (engine) -- node[right] {初次编译，生成中间文件} (aux);
 \draw [optionalarrow] (aux) -- node[right] {处理引用/索引后再编译} (rerun);
-\draw [arrow] (rerun) -- node[right] {生成输出文件} (output);
+\draw [optionalarrow, out=10, in=350, loop] (rerun) to node[right] {$\times 2\sim3$} (rerun);
+\draw [arrow, bend right=60] (engine) to (output);
+\draw [optionalarrow] (rerun) -- node[right] {生成输出文件} (output);
 
 \draw [optionalarrow] (engine) -- node[above] {生成 .aux/.bib 数据} (bib);
 \draw [optionalarrow] (engine) -- node[above] {.idx/.glo 等中间文件} (index);
@@ -49,8 +57,28 @@
 \draw [optionalarrow] (index) |- node[left, yshift=2ex] {.ind/.gls 等中间文件输出} (aux);
 
 % Automation tools
-\draw [arrow] (latexmk) -- node[above left, yshift=-3ex] {自动增量检测并多次调用引擎} (engine);
-\draw [arrow] (arara) -- node[above right, yshift=-3ex] {基于注释规则控制编译流程} (engine);
+\draw [controlarrow] (latexmk) -- node[above left, yshift=-3ex] {自动增量检测并多次调用引擎} (engine);
+\draw [controlarrow] (arara) -- node[above right, yshift=-3ex] {基于注释规则控制编译流程} (engine);
+
+\node[draw, rectangle, fill=white, anchor=south west, yshift=0.5cm, xshift=0.5cm] at (current bounding box.south west) {
+  \begin{tabular}{ll}
+    \tikz\node[startstop,scale=0.5] {}; & 起点/终点 \\
+    \tikz\node[process,scale=0.5] {}; & 处理步骤 \\
+    \tikz\node[files,scale=0.5] {}; & 中间文件 \\
+    \tikz\node[optionalprocess,scale=0.5] {}; & 可选步骤 \\
+    \tikz\node[support,scale=0.5] {}; & 可选支持工具 \\
+    \tikz\node[automation,scale=0.5] {}; & 可选自动化工具 \\
+  \end{tabular}
+};
+
+
+\node[draw, rectangle, fill=white, anchor=south east, yshift=0.5cm, xshift=-0.5cm] at (current bounding box.south east) {
+  \begin{tabular}{ll}
+    \tikz\draw[arrow] (0,0) -- (0.8,0); & 必要步骤 \\
+    \tikz\draw[optionalarrow] (0,0) -- (0.8,0); & 可选步骤 \\
+    \tikz\draw[controlarrow] (0,0) -- (0.8,0); & 自动控制 \\
+  \end{tabular}
+};
 
 \end{tikzpicture}
 }
